@@ -2,13 +2,31 @@
   "compileOnSave": false,
   "compilerOptions": {
     "declaration": false,
-    "jsx": "react",
+    "jsx": "preserve",
     "allowJs": true,
     "target": "es6",
     "module": "CommonJS",
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "skipLibCheck": true,
+    "strict": false,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "incremental": true,
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "baseUrl": "."
   },
   "include": [
     "./src"
+  ],
+  "exclude": [
+    "node_modules"
   ]
 }

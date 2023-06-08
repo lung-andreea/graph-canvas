@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
-import "./AddForm.scss";
+// import "./AddForm.scss";
 
 interface AddFormProps {
   handleFormSubmit: (nodeName: string) => void;
@@ -19,9 +19,16 @@ export const AddForm: React.FC<AddFormProps> = ({ handleFormSubmit }) => {
 
   return (
     <div className="add-menu">
-      <label>New Activity name:</label>
-      <input type="text" value={nodeName} onChange={onNodeNameChange} />
-      <button onClick={handleSubmit}>Add Activity</button>
+      <div className="app-form add-form">
+        <p>Add new Activity</p>
+        <input
+          type="text"
+          value={nodeName}
+          onChange={onNodeNameChange}
+          placeholder="New Activity"
+        />
+        <input type="button" onClick={handleSubmit} value="Add Activity" />
+      </div>
     </div>
   );
 };

@@ -1,0 +1,58 @@
+$port-color: #868686;
+
+.custom-node {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+
+  &-body {
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    max-width: 150px;
+    overflow: auto;
+    overflow-wrap: break-word;
+    background: linear-gradient(135deg, #7117ea 0%,#ea6060 100%);
+    color: #e9e9e9;
+    box-shadow: 6px 7px 17px -2px rgba(0,0,0,0.48);
+    font-family: 'Gill Sans', serif;
+  }
+
+  & .port {
+    box-shadow: 0 0 10px 1px rgba(0,0,0,0.6);
+  }
+
+  & .port[data-name="out"] {
+    margin-left: 5px;
+    border-top: 7px solid transparent;
+    border-bottom: 7px solid transparent;
+    border-left: 5px solid $port-color;
+    transition: ease-in 0.2s;
+    cursor: pointer;
+    opacity: 0.5;
+
+    &:hover {
+      transform: scale(1.5);
+      opacity: 1;
+    }
+  }
+
+  & .port[data-name="in"] {
+    background: $port-color;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    margin-right: 3px;
+    cursor: pointer;
+    opacity: 0.5;
+    transition: ease-in 0.2s;
+
+    &:hover {
+      transform: scale(1.5);
+      opacity: 1;
+    }
+  }
+}

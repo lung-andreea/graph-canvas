@@ -1,33 +1,25 @@
-import React, { Fragment, useEffect, useRef } from "react";
+import { Fragment, useEffect, useRef } from "react";
 import createEngine, { DiagramModel } from "@projectstorm/react-diagrams";
-
 import { CanvasWidget } from "@projectstorm/react-canvas-core";
-import { CustomNodeModel } from "./components/CustomNode/CustomNodeModel";
-import { CustomNodeFactory } from "./components/CustomNode/CustomNodeFactory";
 
-import "./App.scss";
-import useLocalStorage from "./utils/useLocalStorage/useLocalStorage";
-import getRandomPosition from "./utils/getRandomPosition/getRandomPosition";
-import AddForm from "./components/AddForm/AddForm";
+import useLocalStorage from "../../utils/useLocalStorage/useLocalStorage";
+import { CustomNodeFactory } from "../CustomNode/CustomNodeFactory";
+import { CustomNodeModel } from "../CustomNode/CustomNodeModel";
+import getRandomPosition from "../../utils/getRandomPosition/getRandomPosition";
+import AddForm from "../../components/AddForm/AddForm";
 
 const TRIGGER_SERIALIZATION_ACTIONS_MODEL = [
   "nodesUpdated",
   "entityRemoved",
   "gridUpdated",
 ];
-
-const TRIGGER_SERIALIZATION_ACTIONS_NODES = [
-  "positionChanged",
-  "entityRemoved",
-];
-
 const TRIGGER_SERIALIZATION_ACTIONS_LINKS = [
   "sourcePortChanged",
   "targetPortChanged",
   "entityRemoved",
 ];
 
-export default function App() {
+const Home: React.FC = () => {
   const [serializedModel, setSerializedModel] = useLocalStorage(
     "diagram-model",
     new DiagramModel().serialize()
@@ -36,24 +28,19 @@ export default function App() {
 
   const engineRef = useRef(createEngine());
   const engine = engineRef.current;
-  engine.getNodeFactories().registerFactory(new CustomNodeFactory());
+
+  const handleNodeMoved = () => {
+    console.log("serialized model node");
+    setSerializedModel(model.serialize());
+  };
+
+  engine
+    .getNodeFactories()
+    .registerFactory(new CustomNodeFactory({ handleNodeMoved }));
 
   const modelRef = useRef(new DiagramModel());
   const model = modelRef.current;
   model.deserializeModel(serializedModel, engine);
-
-  useEffect(() => {
-    model.getNodes().forEach((node) => {
-      node.registerListener({
-        eventDidFire: (ev) => {
-          console.log("triggered");
-          if (TRIGGER_SERIALIZATION_ACTIONS_NODES.includes(ev.function)) {
-            setSerializedModel(model.serialize());
-          }
-        },
-      });
-    });
-  }, []);
 
   useEffect(() => {
     const modelListener = model.registerListener({
@@ -61,13 +48,15 @@ export default function App() {
         e.link.registerListener({
           eventDidFire: (ev) => {
             if (TRIGGER_SERIALIZATION_ACTIONS_LINKS.includes(ev.function)) {
+              console.log("serialized model link");
               setSerializedModel(model.serialize());
             }
           },
         });
       },
-      eventDidFire: (event) => {
-        if (TRIGGER_SERIALIZATION_ACTIONS_MODEL.includes(event.function)) {
+      eventDidFire: (e) => {
+        if (TRIGGER_SERIALIZATION_ACTIONS_MODEL.includes(e.function)) {
+          console.log("serialized model model", e.function);
           setSerializedModel(model.serialize());
         }
       },
@@ -77,8 +66,6 @@ export default function App() {
       model.deregisterListener(modelListener);
     };
   }, []);
-
-  engine.setModel(model);
 
   useEffect(() => {
     if (!mounted) {
@@ -91,6 +78,8 @@ export default function App() {
     }
     setMounted(true);
   }, []);
+
+  engine.setModel(model);
 
   const handleAddNode = (nodeName: string) => {
     const node = new CustomNodeModel({ color: "#e67e22", name: nodeName });
@@ -106,4 +95,6 @@ export default function App() {
       <CanvasWidget className="canvas" engine={engine} />
     </Fragment>
   );
-}
+};
+
+export default Home;
