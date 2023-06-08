@@ -34,6 +34,17 @@ In the project directory, you can run:
 
 #### `yarn start`
 
+## Testing
+
+- Unit tests are set up with `jest` and `React Testing Library`
+
+![](https://github.com/lung-andreea/graph-canvas/blob/main/images/jest.png)
+
+- Cypress tests in the `cypress/e2e` folder - start the Cypress instance by running `yarn cypress`
+
+![](https://github.com/lung-andreea/graph-canvas/blob/main/images/cypress.png)
+
+
 ## Notes
 
 - The project is using `scss` files for styling for simplicity (can be migrated to styled components)

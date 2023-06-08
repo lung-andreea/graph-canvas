@@ -19,7 +19,7 @@ const TRIGGER_SERIALIZATION_ACTIONS_LINKS = [
   "entityRemoved",
 ];
 
-const Home: React.FC = () => {
+const Home: React.FC<{}> = () => {
   const [serializedModel, setSerializedModel] = useLocalStorage(
     "diagram-model",
     new DiagramModel().serialize()
