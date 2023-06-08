@@ -2,8 +2,6 @@ import * as React from "react";
 import { DiagramEngine, PortWidget } from "@projectstorm/react-diagrams-core";
 import { CustomNodeModel } from "./CustomNodeModel";
 
-// import "./CustomNode.scss";
-
 export interface CustomNodeWidgetProps {
   node: CustomNodeModel;
   engine: DiagramEngine;
@@ -28,19 +26,14 @@ export class CustomNodeWidget extends React.Component<
           engine={this.props.engine}
           port={this.props.node.getPort("in") || undefined}
         >
-          <div className="circle-port" />
+          <div className="inner-port" />
         </PortWidget>
-        <div
-          className="custom-node-body"
-          style={{ backgroundColor: this.props.node.color }}
-        >
-          {this.props.node.name}
-        </div>
+        <div className="custom-node-body">{this.props.node.name}</div>
         <PortWidget
           engine={this.props.engine}
           port={this.props.node.getPort("out") || undefined}
         >
-          <div className="circle-port" />
+          <div className="inner-port" />
         </PortWidget>
       </div>
     );

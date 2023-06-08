@@ -71,7 +71,6 @@ const Home: React.FC = () => {
     if (!mounted) {
       const startNode = new CustomNodeModel({
         name: "Initial",
-        color: "#2ecc71",
       });
       startNode.setPosition(100, 300);
       model.addNode(startNode);
@@ -82,7 +81,7 @@ const Home: React.FC = () => {
   engine.setModel(model);
 
   const handleAddNode = (nodeName: string) => {
-    const node = new CustomNodeModel({ color: "#e67e22", name: nodeName });
+    const node = new CustomNodeModel({ name: nodeName });
     const nodePos = getRandomPosition();
     node.setPosition(nodePos.x, nodePos.y);
     model.addNode(node);

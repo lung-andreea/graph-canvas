@@ -1,7 +1,5 @@
 import { useState } from "react";
 
-// import "./AddForm.scss";
-
 interface AddFormProps {
   handleFormSubmit: (nodeName: string) => void;
 }
