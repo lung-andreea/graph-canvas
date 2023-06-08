@@ -1,15 +1,15 @@
 import Head from "next/head";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import useLocalStorage from "../utils/useLocalStorage/useLocalStorage";
 
 import "../styles/globals.scss";
 
-export default App;
+export const UserContext = React.createContext({ user: null, setUser: null });
 
 function App({ Component, pageProps }) {
   const router = useRouter();
-  const [user] = useLocalStorage("user", null);
+  const [user, setUser] = useLocalStorage("user", null);
   const [authorized, setAuthorized] = useState(false);
 
   useEffect(() => {
@@ -21,7 +21,7 @@ function App({ Component, pageProps }) {
     router.events.on("routeChangeStart", hideContent);
 
     // on route change complete - run auth check
-    router.events.on("routeChangeComplete", authCheck);
+    router.events.on("routeChangeComplete", () => authCheck(router.asPath));
 
     // unsubscribe from events in useEffect return function
     return () => {
@@ -58,7 +58,11 @@ function App({ Component, pageProps }) {
           rel="stylesheet"
         />
       </Head>
-      {authorized && <Component {...pageProps} />}
+      <UserContext.Provider value={{ user: user, setUser: setUser }}>
+        {authorized && <Component {...pageProps} />}
+      </UserContext.Provider>
     </>
   );
 }
+
+export default App;

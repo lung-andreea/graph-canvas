@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useRouter } from "next/router";
-import useLocalStorage from "../../utils/useLocalStorage/useLocalStorage";
+import { UserContext } from "../_app";
 
 interface LoginDetails {
   username: string;
@@ -9,7 +9,10 @@ interface LoginDetails {
 
 export const Index: React.FC = () => {
   const router = useRouter();
-  const [_, setUser] = useLocalStorage("user", null);
+  const { setUser } = useContext<{
+    user: LoginDetails;
+    setUser: (user: LoginDetails) => {};
+  }>(UserContext);
 
   const [formState, setFormState] = useState<LoginDetails>({
     username: "",
