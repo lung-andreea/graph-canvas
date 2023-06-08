@@ -30,9 +30,9 @@ It supports diagram model state preservation between re-renders (when we refresh
 
 In the project directory, you can run:
 
-### `yarn dev`
+#### `yarn dev`
 
-### `yarn start`
+#### `yarn start`
 
 ## Notes
 
