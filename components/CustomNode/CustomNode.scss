@@ -6,6 +6,12 @@ $port-color: #868686;
   justify-content: center;
   position: relative;
 
+  &--selected {
+    .custom-node-body {
+      outline: 1px solid white;
+    }
+  }
+
   &-body {
     border-radius: 10px;
     display: flex;

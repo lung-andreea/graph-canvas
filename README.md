@@ -10,13 +10,13 @@ It supports diagram model state preservation between re-renders (when we refresh
 
 ## Login
 
-![](https://github.com/lung-andreea/graph-canvas/blob/main/images/demo_login.gif)
+![Loading image...](https://github.com/lung-andreea/graph-canvas/blob/main/images/demo_login.gif)
 
 > The login functionality has been implemented using localStorage
 
 ## Refresh functionality
 
-![](https://github.com/lung-andreea/graph-canvas/blob/main/images/demo_refresh.gif)
+![Loading image...](https://github.com/lung-andreea/graph-canvas/blob/main/images/demo_refresh.gif)
 
 > Refresh works for the following cases:
 > 

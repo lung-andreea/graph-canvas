@@ -20,8 +20,15 @@ export class CustomNodeWidget extends React.Component<
   }
 
   render() {
+    const selectedClassname = this.props.node.isSelected()
+      ? "custom-node--selected"
+      : "";
+
     return (
-      <div className="custom-node" onMouseUp={this.props.handleNodeMoved}>
+      <div
+        className={`custom-node ${selectedClassname}`}
+        onMouseUp={this.props.handleNodeMoved}
+      >
         <PortWidget
           engine={this.props.engine}
           port={this.props.node.getPort("in") || undefined}
